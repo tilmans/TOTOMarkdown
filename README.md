@@ -1,6 +1,6 @@
 # TOTOMarkdown
 
-[![CI Status](http://img.shields.io/travis/Tilman Schlenker/TOTOMarkdown.svg?style=flat)](https://travis-ci.org/Tilman Schlenker/TOTOMarkdown)
+[![CI Status](http://img.shields.io/travis/tilmans/TOTOMarkdown.svg?style=flat)](https://travis-ci.org/Tilman Schlenker/TOTOMarkdown)
 [![Version](https://img.shields.io/cocoapods/v/TOTOMarkdown.svg?style=flat)](http://cocoadocs.org/docsets/TOTOMarkdown)
 [![License](https://img.shields.io/cocoapods/l/TOTOMarkdown.svg?style=flat)](http://cocoadocs.org/docsets/TOTOMarkdown)
 [![Platform](https://img.shields.io/cocoapods/p/TOTOMarkdown.svg?style=flat)](http://cocoadocs.org/docsets/TOTOMarkdown)
