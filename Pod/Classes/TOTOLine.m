@@ -79,12 +79,22 @@
                                                       options:0 error:nil];
     match = [regex firstMatchInString:_line options:0 range:range];
     if (match.numberOfRanges > 0) {
-        _type = List;
+        _type = UnorderedList;
         _indent = [_line substringWithRange:[match rangeAtIndex:1]].length;
         _text = [_line substringWithRange:[match rangeAtIndex:2]];
         return;
     }
 
+    regex = [NSRegularExpression regularExpressionWithPattern:@"^(\\s*)[0-9]+\\.\\s*(.*)\\s*$"
+                                                      options:0 error:nil];
+    match = [regex firstMatchInString:_line options:0 range:range];
+    if (match.numberOfRanges > 0) {
+        _type = OrderedList;
+        _indent = [_line substringWithRange:[match rangeAtIndex:1]].length;
+        _text = [_line substringWithRange:[match rangeAtIndex:2]];
+        return;
+    }
+    
     regex = [NSRegularExpression regularExpressionWithPattern:@"(^\\s{4}.*$)"
                                                       options:0 error:nil];
     match = [regex firstMatchInString:_line options:0 range:range];

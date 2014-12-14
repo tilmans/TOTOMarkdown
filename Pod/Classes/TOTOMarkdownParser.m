@@ -19,8 +19,10 @@
     NSDictionary* _regular;
     NSDictionary* _unknownFormat;
     NSDictionary* _code;
-    NSDictionary* _list;
-    NSDictionary* _listLastItem;
+    NSDictionary* _unorderedList;
+    NSDictionary* _unorderedListLastItem;
+    NSDictionary* _orderedList;
+    NSDictionary* _orderedListLastItem;
     
     NSParagraphStyle* _hrParagraph;
     
@@ -81,17 +83,33 @@
     
     hrAttachment.image = image;
     
+    NSMutableArray* indexes = [NSMutableArray array];
     _parsedString = [[NSMutableAttributedString alloc] init];
     for (int it = 0; it<_paragraphs.count; it++) {
         TOTOParagraph* p = _paragraphs[it];
         
         NSDictionary* attributes = [self getStyleForParagraph:p];
         NSString* text;
-        if(p.type == List) {
-            //TODO: Handle different indent levels
-            text = [NSString stringWithFormat:@"•\t%@\n",p.text];
-            if (it<(_paragraphs.count-1) && ((TOTOParagraph*)_paragraphs[it+1]).type != List) {
-                attributes = _listLastItem;
+        if(p.type == UnorderedList) {
+            text = [NSString stringWithFormat:@"%@•\t%@\n", p.indentTabs, p.text];
+            if (it<(_paragraphs.count-1) && ((TOTOParagraph*)_paragraphs[it+1]).type != UnorderedList) {
+                attributes = _unorderedListLastItem;
+            }
+            [_parsedString appendAttributedString:[[NSAttributedString alloc] initWithString:text
+                                                                                  attributes:attributes]];
+        } else if (p.type == OrderedList) {
+            for (int it=0; it<(p.indent+1); it++) {
+                if (indexes.count < (p.indent+1)) {
+                    [indexes addObject:@1];
+                }
+            }
+            NSUInteger index = [indexes[p.indent] integerValue];
+            text = [NSString stringWithFormat:@"%@%lu.\t%@\n", p.indentTabs, index , p.text];
+            indexes[p.indent] = [NSNumber numberWithLong:(index + 1)];
+            
+            if (it<(_paragraphs.count-1) && ((TOTOParagraph*)_paragraphs[it+1]).type != OrderedList) {
+                attributes = _orderedListLastItem;
+                indexes = [NSMutableArray array];
             }
             [_parsedString appendAttributedString:[[NSAttributedString alloc] initWithString:text
                                                                                   attributes:attributes]];
@@ -185,12 +203,21 @@
 {
     if (_currentType == Unknown) {
         // NSLog(@"Type unknown, loosing %lu lines of text.", (unsigned long)_lineBuffer.count);
-    } else if (_currentType == List) {
+    } else if (_currentType == UnorderedList) {
         [_lineBuffer enumerateObjectsUsingBlock:^(TOTOLine* line, NSUInteger idx, BOOL *stop) {
             NSUInteger paragraphIndent = line.indent / 4;
             TOTOParagraph* p = [TOTOParagraph new];
             p.indent = paragraphIndent;
-            p.type = List;
+            p.type = UnorderedList;
+            p.text = line.text;
+            [_paragraphs addObject:p];
+        }];
+    } else if (_currentType == OrderedList) {
+        [_lineBuffer enumerateObjectsUsingBlock:^(TOTOLine* line, NSUInteger idx, BOOL *stop) {
+            NSUInteger paragraphIndent = line.indent / 4;
+            TOTOParagraph* p = [TOTOParagraph new];
+            p.indent = paragraphIndent;
+            p.type = OrderedList;
             p.text = line.text;
             [_paragraphs addObject:p];
         }];
@@ -240,8 +267,10 @@
         attributes = _regular;
     } else if (p.type == Code) {
         attributes = _code;
-    } else if (p.type == List) {
-        attributes = _list;
+    } else if (p.type == UnorderedList) {
+        attributes = _unorderedList;
+    } else if (p.type == OrderedList) {
+        attributes = _orderedList;
     }
     
     return attributes;
@@ -257,14 +286,18 @@
     NSMutableParagraphStyle *list = [NSMutableParagraphStyle new];
     list.firstLineHeadIndent = 0.0;
     list.headIndent = 14.0;
-    NSTextTab *tab = [[NSTextTab alloc] initWithTextAlignment:NSTextAlignmentLeft location:10.0 options:nil];
-    list.tabStops = @[tab];
+    // NSTextTab *tab = [[NSTextTab alloc] initWithTextAlignment:NSTextAlignmentLeft location:2.0 options:nil];
+    // list.tabStops = @[tab];
     
     NSMutableParagraphStyle *listLastItem = [NSMutableParagraphStyle new];
     listLastItem.firstLineHeadIndent = 0.0;
     listLastItem.headIndent = 14.0;
-    listLastItem.tabStops = @[tab];
+    // listLastItem.tabStops = @[tab];
     listLastItem.paragraphSpacing = baseFontSize;
+    
+    NSMutableParagraphStyle *orderedList = [NSMutableParagraphStyle new];
+    NSMutableParagraphStyle *orderedListLast = [NSMutableParagraphStyle new];
+    orderedListLast.paragraphSpacing = baseFontSize;
     
     UIFont* systemHeaderFont = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
     UIFontDescriptor* headerDescriptor = systemHeaderFont.fontDescriptor;
@@ -273,13 +306,20 @@
                  NSParagraphStyleAttributeName: regular,
                  NSForegroundColorAttributeName: self.textColor};
     
-    _list = @{NSFontAttributeName: baseFont,
+    _unorderedList = @{NSFontAttributeName: baseFont,
               NSParagraphStyleAttributeName: list,
               NSForegroundColorAttributeName: self.textColor};
-    _listLastItem = @{NSFontAttributeName: baseFont,
+    _unorderedListLastItem = @{NSFontAttributeName: baseFont,
                       NSParagraphStyleAttributeName: listLastItem,
                       NSForegroundColorAttributeName: self.textColor};
-    
+
+    _orderedList = @{NSFontAttributeName: baseFont,
+                       NSParagraphStyleAttributeName: orderedList,
+                       NSForegroundColorAttributeName: self.textColor};
+    _orderedListLastItem = @{NSFontAttributeName: baseFont,
+                               NSParagraphStyleAttributeName: orderedListLast,
+                               NSForegroundColorAttributeName: self.textColor};
+
     _header1 = @{NSFontAttributeName: [UIFont fontWithDescriptor:headerDescriptor size:baseFontSize+8],
                  NSForegroundColorAttributeName: self.textColor};
     _header2 = @{NSFontAttributeName: [UIFont fontWithDescriptor:headerDescriptor size:baseFontSize+5],

@@ -5,4 +5,12 @@
 #import "TOTOParagraph.h"
 
 @implementation TOTOParagraph
+-(NSString*)indentTabs
+{
+    NSMutableString* string = [NSMutableString string];
+    for (int it=0; it<self.indent; it++) {
+        [string appendString:@"\t"];
+    }
+    return string;
+}
 @end

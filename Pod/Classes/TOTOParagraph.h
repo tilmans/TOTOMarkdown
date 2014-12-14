@@ -14,7 +14,8 @@ typedef enum LineType : NSUInteger {
     Header4,
     Header5,
     Header6,
-    List,
+    UnorderedList,
+    OrderedList,
     Code,
     Quote,
     HR,
@@ -26,4 +27,5 @@ typedef enum LineType : NSUInteger {
 @property (nonatomic) LineType type;
 @property (nonatomic, strong) NSString* text;
 @property (nonatomic) NSUInteger indent;
+@property (nonatomic, readonly) NSString* indentTabs;
 @end
