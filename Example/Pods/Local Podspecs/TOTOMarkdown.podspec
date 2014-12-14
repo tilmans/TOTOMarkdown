@@ -15,12 +15,10 @@ Pod::Spec.new do |s|
                         A pure Cocoa implementation of Markdown that tries to support
                         all of the common functionality.
                         DESC
-  s.homepage         = "https://platform.toto.io"
-  # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
+  s.homepage         = "https://github.com/tilmans/TOTOMarkdown"
   s.license          = 'MIT'
-  s.author           = { "Tilman Schlenker" => "tilman.s@me.com" }
-  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/TOTOMarkdown.git", :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.author           = { "Tilman Schlenker" => "tilman@mailbox.org" }
+  s.source           = { :git => "https://github.com/tilmans/TOTOMarkdown.git", :tag => s.version.to_s }
 
   s.platform     = :ios, '7.0'
   s.requires_arc = true
@@ -29,8 +27,4 @@ Pod::Spec.new do |s|
   s.resource_bundles = {
     'TOTOMarkdown' => ['Pod/Assets/*.png']
   }
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
 end
