@@ -349,12 +349,12 @@
 
 -(void)parseInlineMarkup
 {
-    NSString* bolditalic    = @"((?<!\\\\)\\*\\*\\*([^\\*\\s].*[^\\\\])(?<!\\\\)\\*\\*\\*)";
-    NSString* bolditalic2   = @"((?<!\\\\)\\_\\_\\_([^\\*\\s].*[^\\\\])(?<!\\\\)\\_\\_\\_)";
-    NSString* bold          = @"((?<!\\\\)\\*\\*([^\\*\\s].*)(?<!\\\\)\\*\\*)";
-    NSString* bold2         = @"((?<!\\\\)\\_\\_([^\\*\\s].*)(?<!\\\\)\\_\\_)";
-    NSString* italic        = @"((?<!\\\\)\\*([^\\*\\s].*)(?<!\\\\)\\*)";
-    NSString* italic2       = @"((?<!\\\\)\\_([^\\*\\s].*)(?<!\\\\)\\_)";
+    NSString* bolditalic    = @"((?<!\\\\)\\*\\*\\*([^\\*\\s][^\\*]*)(?<!\\\\)\\*\\*\\*)";
+    NSString* bolditalic2   = @"((?<!\\\\)\\_\\_\\_([^\\_\\s][^\\_]*)(?<!\\\\)\\_\\_\\_)";
+    NSString* bold          = @"((?<!\\\\)\\*\\*([^\\*\\s][^\\*]*)(?<!\\\\)\\*\\*)";
+    NSString* bold2         = @"((?<!\\\\)\\_\\_([^\\_\\s][^\\_]*)(?<!\\\\)\\_\\_)";
+    NSString* italic        = @"((?<!\\\\)\\*([^\\*\\s][^\\*]*)(?<!\\\\)\\*)";
+    NSString* italic2       = @"((?<!\\\\)\\_([^\\_\\s][^\\_]*)(?<!\\\\)\\_)";
     
     [self findRegex:bolditalic andReplaceWith:UIFontDescriptorTraitItalic | UIFontDescriptorTraitBold];
     [self findRegex:bolditalic2 andReplaceWith:UIFontDescriptorTraitItalic | UIFontDescriptorTraitBold];

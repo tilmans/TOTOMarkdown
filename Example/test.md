@@ -1,5 +1,7 @@
 **bold** normal *italic*
 
+This is a long text **bold** and *italics* and then more **bold** and so on
+
 1. One
 2. Two
     1. Two dot one
