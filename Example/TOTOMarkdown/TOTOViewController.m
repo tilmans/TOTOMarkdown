@@ -21,15 +21,8 @@
     
     TOTOMarkdownParser* parser = [TOTOMarkdownParser new];
     parser.markdown = testString;
-    parser.blackHR = YES;
-    parser.textColor = [UIColor blackColor];
+    parser.textColor = [UIColor colorWithHue:.5 saturation:.8 brightness:.4 alpha:1.0];
     self.textView.attributedText = [parser parseMarkdown];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end
