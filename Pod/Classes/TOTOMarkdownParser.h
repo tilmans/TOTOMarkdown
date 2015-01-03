@@ -6,8 +6,8 @@
 
 @interface TOTOMarkdownParser : NSObject
 @property (nonatomic, strong) UIColor* textColor;
+@property (nonatomic, assign) CGFloat hrWidth;
 @property (nonatomic, strong) NSString* markdown;
-@property (nonatomic) BOOL blackHR;
 
 -(NSAttributedString*)parseMarkdown;
 @end

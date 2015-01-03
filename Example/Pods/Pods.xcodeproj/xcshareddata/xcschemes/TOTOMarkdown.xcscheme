@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F7C547C3FF585E3FAFCF8A1C"
+               BlueprintIdentifier = "B6FFA4B8B025EFCAA4D43F75"
                BuildableName = "TOTOMarkdown.bundle"
                BlueprintName = "TOTOMarkdown"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -42,7 +42,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F7C547C3FF585E3FAFCF8A1C"
+            BlueprintIdentifier = "B6FFA4B8B025EFCAA4D43F75"
             BuildableName = "TOTOMarkdown.bundle"
             BlueprintName = "TOTOMarkdown"
             ReferencedContainer = "container:Pods.xcodeproj">
@@ -61,7 +61,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F7C547C3FF585E3FAFCF8A1C"
+            BlueprintIdentifier = "B6FFA4B8B025EFCAA4D43F75"
             BuildableName = "TOTOMarkdown.bundle"
             BlueprintName = "TOTOMarkdown"
             ReferencedContainer = "container:Pods.xcodeproj">
@@ -79,7 +79,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F7C547C3FF585E3FAFCF8A1C"
+            BlueprintIdentifier = "B6FFA4B8B025EFCAA4D43F75"
             BuildableName = "TOTOMarkdown.bundle"
             BlueprintName = "TOTOMarkdown"
             ReferencedContainer = "container:Pods.xcodeproj">

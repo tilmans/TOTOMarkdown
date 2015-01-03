@@ -38,7 +38,7 @@
     self = [super init];
     if (self) {
         self.textColor = [UIColor whiteColor];
-        self.blackHR = NO;
+        self.hrWidth = 200.f;
     }
     return self;
 }
@@ -62,26 +62,8 @@
     [self parseLines];
     
     NSTextAttachment* hrAttachment = [NSTextAttachment new];
-    NSString* imageName;
-    if (self.blackHR) {
-        imageName = @"hrBlack";
-    } else {
-        imageName = @"hrWhite";
-    }
-    
-    CGFloat screenScale = [[UIScreen mainScreen] scale];
-    if (screenScale > 2) {
-        imageName = [imageName stringByAppendingString:@"@3x"];
-    } else if (screenScale > 1) {
-        imageName = [imageName stringByAppendingString:@"@2x"];
-    }
-    
-    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"TOTOMarkdown" ofType:@"bundle"];
-    NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
-    NSString *imagePath = [bundle pathForResource:imageName ofType:@"png"];
-    UIImage* image = [UIImage imageWithContentsOfFile:imagePath];
-    
-    hrAttachment.image = image;
+    hrAttachment.image = [self hrImage];
+    hrAttachment.bounds = CGRectMake(0, 0, self.hrWidth, 1);
     
     NSMutableArray* indexes = [NSMutableArray array];
     _parsedString = [[NSMutableAttributedString alloc] init];
@@ -130,6 +112,19 @@
     [self unescapeSpecialCharacter:@"(\\\\_)" with:@"_"];
     
     return [[NSAttributedString alloc] initWithAttributedString:_parsedString];
+}
+
+- (UIImage *)hrImage {
+    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContextWithOptions(rect.size, YES, 0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, [self.textColor CGColor]);
+    CGContextFillRect(context, rect);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
 }
 
 -(void)splitTextToLines

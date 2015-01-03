@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		225916581A3DD23A009A9FED /* test.md in Sources */ = {isa = PBXBuildFile; fileRef = 225916571A3DD23A009A9FED /* test.md */; };
 		225916591A3DD304009A9FED /* test.md in Resources */ = {isa = PBXBuildFile; fileRef = 225916571A3DD23A009A9FED /* test.md */; };
 		51B1D79F76F84464D121CC5A /* libPods-TOTOMarkdown.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EBE811A261C7EEC96F3C8EA /* libPods-TOTOMarkdown.a */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
@@ -368,7 +367,6 @@
 			files = (
 				6003F59E195388D20070C39A /* TOTOAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* TOTOViewController.m in Sources */,
-				225916581A3DD23A009A9FED /* test.md in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
